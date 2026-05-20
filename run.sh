@@ -245,6 +245,15 @@ gdb.log|gdb.log
 FILES
 )"
     ;;
+  7.2.kehou-3)
+    level_path="7.2.kehou-3"
+    files="$(cat <<'FILES'
+install.sh|install.sh
+第四关.txt|%E7%AC%AC%E5%9B%9B%E5%85%B3.txt
+gdb.log|gdb.log
+FILES
+)"
+    ;;
   7.2.ketang-1)
     level_path="7.2.ketang-1"
     files="$(cat <<'FILES'
@@ -259,15 +268,6 @@ FILES
     files="$(cat <<'FILES'
 install.sh|install.sh
 第二关.txt|%E7%AC%AC%E4%BA%8C%E5%85%B3.txt
-gdb.log|gdb.log
-FILES
-)"
-    ;;
-  7.3.ketang-3)
-    level_path="7.3.ketang-3"
-    files="$(cat <<'FILES'
-install.sh|install.sh
-第四关.txt|%E7%AC%AC%E5%9B%9B%E5%85%B3.txt
 gdb.log|gdb.log
 FILES
 )"
@@ -294,7 +294,7 @@ download_file() {
   local url="$RAW_BASE/$level_path/$encoded_name"
   local target="$level_dir/$name"
 
-  echo "下载: $level/$name"
+  echo "$name"
 
   if command -v curl >/dev/null 2>&1; then
     curl -fsSL --retry 3 --connect-timeout 15 "$url" -o "$target"
