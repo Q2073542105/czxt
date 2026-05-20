@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-RAW_BASE="https://raw.githubusercontent.com/Q2073542105/czxt/main"
+RAW_BASE="https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main"
 
 if [ $# -lt 1 ]; then
-  echo "用法: bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Q2073542105/czxt/main/run.sh)\" -- 关卡文件夹名"
+  echo "用法: bash -c \"$(curl -fsSL https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main/run.sh)\" -- 关卡文件夹名"
   exit 1
 fi
 
@@ -294,10 +294,12 @@ download_file() {
   local url="$RAW_BASE/$level_path/$encoded_name"
   local target="$level_dir/$name"
 
+  echo "下载: $level/$name"
+
   if command -v curl >/dev/null 2>&1; then
-    curl -fL "$url" -o "$target"
+    curl -fsSL --retry 3 --connect-timeout 15 "$url" -o "$target"
   elif command -v wget >/dev/null 2>&1; then
-    wget -O "$target" "$url"
+    wget -q -O "$target" "$url"
   else
     echo "当前系统缺少 curl 或 wget，无法下载文件。"
     exit 1
