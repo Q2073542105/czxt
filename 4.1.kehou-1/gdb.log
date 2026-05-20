@@ -1,0 +1,129 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in sys_pipe (fildes=0x0 <startup_32>) at pipe.c:86
+86		j=0;
+Breakpoint 1 at 0x67a7: file init/main.c, line 116.
+
+Breakpoint 1, main () at init/main.c:116
+116	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) b 155
+Breakpoint 2 at 0x6969: file init/main.c, line 155.
+(gdb) b 172
+Breakpoint 3 at 0x69d9: file init/main.c, line 172.
+(gdb) commands 2
+Type commands for breakpoint(s) 2, one per line.
+End with a line saying just "end".
+>x/wx 0x402282c
+>end
+(gdb) commands 3
+Type commands for breakpoint(s) 3, one per line.
+End with a line saying just "end".
+>x/wx 0x2282c
+>end
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000000
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000001
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000001
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000002
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000003
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000004
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000005
+(gdb) c
+Continuing.
+
+Breakpoint 3, main () at init/main.c:172
+172				output_char('a' + mynext);
+1: current->pid = 0
+0x2282c <mynext>:	0x00000006
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000002
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000003
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000004
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000005
+(gdb) c
+Continuing.
+
+Breakpoint 2, main () at init/main.c:155
+155					output_char('A' + mynext);
+1: current->pid = 1
+0x402282c:	0x00000006
+(gdb) c
+Continuing.

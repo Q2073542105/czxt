@@ -1,0 +1,55 @@
+(gdb) b bead
+Function "bead" not defined.
+Make breakpoint pending on future shared library load? (y or [n]) n
+(gdb) b bread
+Breakpoint 2 at 0xd0b2: file buffer.c, line 271.
+(gdb) c
+Continuing.
+
+Breakpoint 2, bread (dev=768, block=0) at buffer.c:271
+271     {
+1: current->pid = 1
+(gdb) b add_request
+Breakpoint 3 at 0x12a27: file ll_rw_blk.c, line 65.
+(gdb) c
+Continuing.
+
+Breakpoint 3, add_request (dev=0x43b8 <blk_dev+24>,
+    req=0x2663c <request+1116>) at ll_rw_blk.c:65
+65      {
+1: current->pid = 1
+(gdb) p *dev
+$1 = {request_fn = 0x14451 <do_hd_request>, current_request = 0x0 <startup_32>}
+(gdb) p *req
+$2 = {dev = 768, cmd = 0, errors = 0, sector = 0, nr_sectors = 2,
+  buffer = 0x3ffc00 "", waiting = 0x0 <startup_32>, bh = 0x26670,
+  next = 0x0 <startup_32>}
+(gdb) b hd_out
+Breakpoint 4 at 0x14052: file hd.c, line 185.
+(gdb) c
+Continuing.
+
+Breakpoint 4, hd_out (drive=0, nsect=2, sect=1, head=0, cyl=0, cmd=32,
+    intr_addr=0x1430e <read_intr>) at hd.c:185
+185     {
+1: current->pid = 1
+(gdb) b read_intr
+Breakpoint 5 at 0x1430e: file hd.c, line 253.
+(gdb) c
+Continuing.
+
+Breakpoint 5, read_intr () at hd.c:253
+253     {
+1: current->pid = 0
+(gdb) x/8xb 0x3ffc00
+0x3ffc00:       0x00    0x00    0x00    0x00    0x00    0x00    0x00    0x00
+(gdb) x/8xb 0x3ffc00
+0x3ffc00:       0x00    0x00    0x00    0x00    0x00    0x00    0x00    0x00
+(gdb) c
+Continuing.
+
+Breakpoint 5, read_intr () at hd.c:253
+253     {
+1: current->pid = 0
+(gdb) x/8xb 0x3ffc00
+0x3ffc00:       0xeb    0x3c    0x90    0x4d    0x53    0x44    0x4f    0x53

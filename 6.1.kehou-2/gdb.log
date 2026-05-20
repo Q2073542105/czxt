@@ -1,0 +1,115 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:42
+42		int mode = inode->i_mode;
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) 
+(gdb) b do_execve
+Breakpoint 2 at 0xefb9: file exec.c, line 190.
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xffbfec, tmp=30391, filename=0x1848c "/bin/sh", 
+    argv=0x1e700 <argv_rc>, envp=0x1e708 <envp_rc>) at exec.c:190
+190	{
+1: current->pid = 2
+(gdb) commands 2
+Type commands for breakpoint(s) 2, one per line.
+End with a line saying just "end".
+>p current->start_code+filename
+>end
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xfbdfec, tmp=30391, filename=0x3ae80 "", 
+    argv=0x37dd0, envp=0x3ffc0) at exec.c:190
+190	{
+1: current->pid = 3
+$1 = 0xc03ae80 "/etc/update"
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xfeefec, tmp=30391, filename=0x37eb8 "", 
+    argv=0x37e40, envp=0x3ffc0) at exec.c:190
+190	{
+1: current->pid = 4
+$2 = 0x10037eb8 "./a.out"
+(gdb) b sys_read
+Breakpoint 3 at 0xb88e: file read_write.c, line 56.
+(gdb) c
+Continuing.
+
+Breakpoint 3, sys_read (fd=0, 
+    buf=0x3fffec4 "\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220"..., count=1) at read_write.c:56
+56	{
+1: current->pid = 4
+(gdb) c
+Continuing.
+
+Breakpoint 3, sys_read (fd=3, 
+    buf=0x3fffec4 "\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220\304\376\377\003\377\317f\220"..., count=80) at read_write.c:56
+56	{
+1: current->pid = 4
+(gdb) b add_request
+Breakpoint 4 at 0x12a83: file ll_rw_blk.c, line 65.
+(gdb) c
+Continuing.
+
+Breakpoint 4, add_request (dev=0x24418 <blk_dev+24>, 
+    req=0x2669c <request+1116>) at ll_rw_blk.c:65
+65	{
+1: current->pid = 4
+(gdb) p *dev
+$3 = {request_fn = 0x144ad <do_hd_request>, current_request = 0x0 <startup_32>}
+(gdb) p *req
+$4 = {dev = 768, cmd = 0, errors = 0, sector = 9486, nr_sectors = 2, 
+  buffer = 0x3c8800 "", waiting = 0x0 <startup_32>, bh = 0x285e4, 
+  next = 0x0 <startup_32>}
+(gdb) b wake_up
+Breakpoint 5 at 0x6fa9: file sched.c, line 190.
+(gdb) c
+Continuing.
+
+Breakpoint 5, wake_up (p=0x285f4) at sched.c:190
+190		if (p && *p) {
+1: current->pid = 0
+(gdb) b sched.c:141
+Breakpoint 6 at 0x6e59: file sched.c, line 141.
+(gdb) c
+Continuing.
+
+Breakpoint 5, wake_up (p=0x266b4 <request+1140>) at sched.c:190
+190		if (p && *p) {
+1: current->pid = 0
+(gdb) c
+Continuing.
+
+Breakpoint 5, wake_up (p=0x243e0 <wait_for_request>) at sched.c:190
+190		if (p && *p) {
+1: current->pid = 0
+(gdb) c
+Continuing.
+
+Breakpoint 6, schedule () at sched.c:141
+141		switch_to(next);
+1: current->pid = 0
+(gdb) p c
+$5 = 14
+(gdb) 

@@ -1,0 +1,100 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:42
+42		int mode = inode->i_mode;
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) n [K[Kb do_execve
+Breakpoint 2 at 0xefb9: file exec.c, line 190.
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xffbfec, tmp=30391, filename=0x1848c "/bin/sh", 
+    argv=0x1e700 <argv_rc>, envp=0x1e708 <envp_rc>) at exec.c:190
+190	{
+1: current->pid = 2
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xfbdfec, tmp=30391, filename=0x3ae80 "", 
+    argv=0x37dd0, envp=0x3ffc0) at exec.c:190
+190	{
+1: current->pid = 3
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xffdfec, tmp=30391, filename=0x1848c "/bin/sh", 
+    argv=0x1e714 <argv>, envp=0x1e71c <envp>) at exec.c:190
+190	{
+1: current->pid = 4
+(gdb) c
+Continuing.
+
+Breakpoint 2, do_execve (eip=0xfb6fec, tmp=30391, filename=0x3a2b0 "", 
+    argv=0x3a2a8, envp=0x3ffc0) at exec.c:190
+190	{
+1: current->pid = 6
+(gdb) b do [K_no_page
+Breakpoint 3 at 0xace6: file memory.c, line 367.
+(gdb) c
+Continuing.
+
+Breakpoint 3, do_no_page (error_code=4, address=268435456) at memory.c:367
+367	{
+1: current->pid = 6
+(gdb) finish
+Run till exit from #0  do_no_page (error_code=4, address=268435456)
+    at memory.c:367
+0x0000afe7 in page_fault ()
+1: current->pid = 6
+(gdb) p/x current->start_code
+$1 = 0x10000000
+(gdb) x/65wx 0
+0x0 <startup_32>:	0x00001027	0x00002007	0x00003007	0x00004027
+0x10 <startup_32+16>:	0x00000000	0x00028608	0x00000000	0x00000000
+0x20 <startup_32+32>:	0x00000000	0x00000000	0x00000000	0x00000000
+0x30 <startup_32+48>:	0x00000000	0x00000000	0x00000000	0x00000000
+0x40 <startup_32+64>:	0x00ffe027	0x00000000	0x00000000	0x00000000
+0x50 <startup_32+80>:	0x00000000	0x00000000	0x00000000	0x00000000
+0x60 <check_x87+6>:	0x00000000	0x00000000	0x00000000	0x00000000
+0x70 <check_x87+22>:	0x00000000	0x00000000	0x00000000	0x00000000
+0x80 <setup_idt+13>:	0x00ff3027	0x00000000	0x00000000	0x00000000
+0x90 <rp_sidt>:	0x00000000	0x00000000	0x00000000	0x00000000
+0xa0 <rp_sidt+16>:	0x00000000	0x00000000	0x00000000	0x00000000
+0xb0 <setup_gdt+13>:	0x00000000	0x00000000	0x00000000	0x00ffb027
+0xc0 <setup_gdt+29>:	0x00ff6027	0x00000000	0x00000000	0x00000000
+0xd0 <setup_gdt+45>:	0x00000000	0x00000000	0x00000000	0x00000000
+0xe0 <setup_gdt+61>:	0x00000000	0x00000000	0x00000000	0x00000000
+0xf0 <setup_gdt+77>:	0x00000000	0x00000000	0x00000000	0x00ffa027
+0x100 <setup_gdt+93>:	0x00fb5007
+(gdb) wx[K/x 0x00fb5000
+(gdb) x/w 0x00fb5000
+0xfb5000:	0x00fdc007
+(gdb) x/5i 0x00fdc000
+   0xfdc000:	mov    0x8(%esp),%eax
+   0xfdc004:	mov    %eax,0x4000
+   0xfdc009:	call   0xfdc020
+   0xfdc00e:	push   $0x0
+   0xfdc010:	call   0xfdce50
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y

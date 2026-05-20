@@ -1,0 +1,78 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:49
+49		else if (current->egid==inode->i_gid)
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) b sys_open
+Breakpoint 2 at 0xb384: file open.c, line 139.
+(gdb) c
+Continuing.
+
+Breakpoint 2, sys_open (filename=0x183d7 "/dev/tty0", flag=2, mode=0)
+    at open.c:139
+139	{
+1: current->pid = 1
+(gdb) b open.c:185
+Breakpoint 3 at 0xb617: file open.c, line 185.
+(gdb) c
+Continuing.
+
+Breakpoint 3, sys_open (filename=0x183d7 "/dev/tty0", flag=2, mode=0)
+    at open.c:185
+185	}
+1: current->pid = 1
+(gdb) p current->filp
+$1 = {0x25de0 <file_table>, 0x0 <startup_32> <repeats 19 times>}
+(gdb)  p file_table
+$2 = {{f_mode = 8576, f_flags = 2, f_count = 1, 
+    f_inode = 0x23d08 <inode_table+168>, f_pos = 0}, {f_mode = 0, f_flags = 0, 
+    f_count = 0, f_inode = 0x0 <startup_32>, f_pos = 0} <repeats 63 times>}
+(gdb) p inode_table
+$3 = {{i_mode = 0, i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', 
+    i_nlinks = 0 '\000', i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, 
+    i_count = 0, i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {
+    i_mode = 16877, i_uid = 0, i_size = 128, i_mtime = 1600485900, 
+    i_gid = 0 '\000', i_nlinks = 8 '\b', i_zone = {112, 0, 0, 0, 0, 0, 0, 0, 
+      0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+    i_num = 1, i_count = 4, i_lock = 0 '\000', i_dirt = 0 '\000', 
+    i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'}, {i_mode = 16877, i_uid = 0, i_size = 336, 
+    i_mtime = 1078316602, i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {
+      950, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, i_atime = 0, 
+    i_ctime = 0, i_dev = 768, i_num = 15, i_count = 0, i_lock = 0 '\000', 
+    i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', 
+    i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 8576, i_uid = 0, 
+    i_size = 0, i_mtime = 1078316629, i_gid = 0 '\000', i_nlinks = 1 '\001', 
+    i_zone = {1024, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 1778768880, i_ctime = 0, i_dev = 768, i_num = 26, i_count = 1, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 0, 
+    i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', i_nlinks = 0 '\000', 
+    i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, i_count = 0, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'} <repeats 28 times>}
+(gdb) p *current->filp[0]
+$4 = {f_mode = 8576, f_flags = 2, f_count = 1, 
+  f_inode = 0x23d08 <inode_table+168>, f_pos = 0}
+(gdb) 

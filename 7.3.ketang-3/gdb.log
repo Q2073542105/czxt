@@ -1,0 +1,57 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:49
+49		else if (current->egid==inode->i_gid)
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) b sys_read
+Breakpoint 2 at 0xb832: file read_write.c, line 56.
+(gdb) c
+Continuing.
+
+Breakpoint 2, sys_read (fd=0, buf=0x254fb <user_stack+3931> "", count=1)
+    at read_write.c:56
+56	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 2, sys_read (fd=3, buf=0x254fb <user_stack+3931> "", count=80)
+    at read_write.c:56
+56	{
+1: current->pid = 1
+(gdb) p *current->filp[3]
+$1 = {f_mode = 33188, f_flags = 0, f_count = 1, 
+  f_inode = 0x23db0 <inode_table+336>, f_pos = 0}
+(gdb) p *current->filp[3]->f_inode
+$2 = {i_mode = 33188, i_uid = 0, i_size = 74, i_mtime = 1600496672, 
+  i_gid = 0 '\000', i_nlinks = 1 '\001', i_zone = {4743, 0, 0, 0, 0, 0, 0, 0, 
+    0}, i_wait = 0x0 <startup_32>, i_atime = 1778768698, i_ctime = 0, 
+  i_dev = 768, i_num = 134, i_count = 1, i_lock = 0 '\000', i_dirt = 0 '\000', 
+  i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+  i_update = 0 '\000'}
+(gdb) b bread
+Breakpoint 3 at 0xd0b2: file buffer.c, line 271.
+(gdb) c
+Continuing.
+
+Breakpoint 3, bread (dev=768, block=4743) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) 

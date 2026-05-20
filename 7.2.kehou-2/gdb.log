@@ -1,0 +1,116 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:42
+42		int mode = inode->i_mode;
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 2
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 2
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 3
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 3
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 4
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 4
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x00000001 in startup_32 ()
+1: current->pid = 6
+(gdb) b sys_read
+Breakpoint 2 at 0xb88e: file read_write.c, line 56.
+(gdb) c
+Continuing.
+
+Breakpoint 2, sys_read (fd=3, 
+    buf=0x3ffee58 "X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220X\356\377\003\377\317f\220"..., count=3609) at read_write.c:56
+56	{
+1: current->pid = 6
+(gdb) p *current->filp[3]
+$1 = {f_mode = 33261, f_flags = 0, f_count = 1, 
+  f_inode = 0x23cc0 <inode_table>, f_pos = 8192}
+(gdb) p *current->filp[3]->f_inode
+$2 = {i_mode = 33261, i_uid = 0, i_size = 11801, i_mtime = 695433600, 
+  i_gid = 0 '\000', i_nlinks = 1 '\001', i_zone = {969, 970, 971, 972, 973, 
+    974, 975, 976, 0}, i_wait = 0x0 <startup_32>, i_atime = 1778769381, 
+  i_ctime = 0, i_dev = 768, i_num = 42, i_count = 1, i_lock = 0 '\000', 
+  i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+  i_update = 0 '\000'}
+(gdb) b bread
+Breakpoint 3 at 0xd10e: file buffer.c, line 271.
+(gdb) c
+Continuing.
+
+Breakpoint 3, bread (dev=768, block=976) at buffer.c:271
+271	{
+1: current->pid = 6
+(gdb) finish
+Run till exit from #0  bread (dev=768, block=976) at buffer.c:271
+0x0000bebd in _bmap (inode=0x23cc0 <inode_table>, block=1, create=0)
+    at inode.c:98
+98			if (!(bh = bread(inode->i_dev,inode->i_zone[7])))
+1: current->pid = 6
+Value returned is $3 = (struct buffer_head *) 0x28920
+(gdb) p *(struct buffer_head *)0x28920
+$4 = {b_data = 0x3c2c00 "\321\003\322\003\323\003\324\003\325\003", 
+  b_blocknr = 976, b_dev = 768, b_uptodate = 1 '\001', b_dirt = 0 '\000', 
+  b_count = 1 '\001', b_lock = 0 '\000', b_wait = 0x0 <startup_32>, 
+  b_prev = 0x0 <startup_32>, b_next = 0x286e0, b_prev_free = 0x288fc, 
+  b_next_free = 0x28944}
+(gdb) x/8hd 0x3c2c00
+0x3c2c00:	977	978	979	980	981	0	0	0
+(gdb) b bread
+Note: breakpoint 3 also set at pc 0xd10e.
+Breakpoint 4 at 0xd10e: file buffer.c, line 271.
+(gdb) c
+Continuing.
+
+Breakpoint 3, bread (dev=768, block=978) at buffer.c:271
+271	{
+1: current->pid = 6
+(gdb) 

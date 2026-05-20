@@ -1,0 +1,113 @@
+Breakpoint 3, sys_open (filename=0x18407 "/usr/root/hello.c", flag=0, mode=0)
+    at open.c:185
+185	}
+1: current->pid = 1
+(gdb) p fd
+$1 = 3
+(gdb) p current->filp
+$2 = {0x25de0 <file_table>, 0x25de0 <file_table>, 0x25de0 <file_table>, 
+  0x25df0 <file_table+16>, 0x0 <startup_32> <repeats 16 times>}
+(gdb) p *current->filp[3]
+$3 = {f_mode = 33188, f_flags = 0, f_count = 1, 
+  f_inode = 0x23db0 <inode_table+336>, f_pos = 0}
+(gdb) p/x *current->filp[3]->f_inode
+$4 = {i_mode = 0x81a4, i_uid = 0x0, i_size = 0x4a, i_mtime = 0x5f65a420, 
+  i_gid = 0x0, i_nlinks = 0x1, i_zone = {0x1287, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 
+    0x0, 0x0}, i_wait = 0x0, i_atime = 0x6a05d625, i_ctime = 0x0, 
+  i_dev = 0x300, i_num = 0x86, i_count = 0x1, i_lock = 0x0, i_dirt = 0x0, 
+  i_pipe = 0x0, i_mount = 0x0, i_seek = 0x0, i_update = 0x0}
+(gdb) p file_table
+$5 = {{f_mode = 8576, f_flags = 2, f_count = 3, 
+    f_inode = 0x23d08 <inode_table+168>, f_pos = 0}, {f_mode = 33188, 
+    f_flags = 0, f_count = 1, f_inode = 0x23db0 <inode_table+336>, f_pos = 0}, 
+  {f_mode = 0, f_flags = 0, f_count = 0, f_inode = 0x0 <startup_32>, 
+    f_pos = 0} <repeats 62 times>}
+(gdb) p inode [K_table
+$6 = {{i_mode = 0, i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', 
+    i_nlinks = 0 '\000', i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, 
+    i_count = 0, i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {
+    i_mode = 16877, i_uid = 0, i_size = 128, i_mtime = 1600485900, 
+    i_gid = 0 '\000', i_nlinks = 8 '\b', i_zone = {112, 0, 0, 0, 0, 0, 0, 0, 
+      0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+    i_num = 1, i_count = 4, i_lock = 0 '\000', i_dirt = 0 '\000', 
+    i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'}, {i_mode = 16877, i_uid = 0, i_size = 336, 
+    i_mtime = 1078316602, i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {
+      950, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, i_atime = 0, 
+    i_ctime = 0, i_dev = 768, i_num = 15, i_count = 0, i_lock = 0 '\000', 
+    i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', 
+    i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 8576, i_uid = 0, 
+    i_size = 0, i_mtime = 1078316629, i_gid = 0 '\000', i_nlinks = 1 '\001', 
+    i_zone = {1024, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 1778767391, i_ctime = 0, i_dev = 768, i_num = 26, i_count = 1, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {
+    i_mode = 16877, i_uid = 0, i_size = 96, i_mtime = 1600478644, 
+    i_gid = 0 '\000', i_nlinks = 6 '\006', i_zone = {987, 0, 0, 0, 0, 0, 0, 0, 
+      0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+    i_num = 48, i_count = 0, i_lock = 0 '\000', i_dirt = 0 '\000', 
+    i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'}, {i_mode = 16877, i_uid = 0, i_size = 176, 
+    i_mtime = 1600496672, i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {
+      4721, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, i_atime = 0, 
+    i_ctime = 0, i_dev = 768, i_num = 131, i_count = 0, i_lock = 0 '\000', 
+    i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', 
+    i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 33188, i_uid = 0, 
+    i_size = 74, i_mtime = 1600496672, i_gid = 0 '\000', i_nlinks = 1 '\001', 
+    i_zone = {4743, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 1778767397, i_ctime = 0, i_dev = 768, i_num = 134, i_count = 1, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 0, 
+    i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', i_nlinks = 0 '\000', 
+    i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, i_count = 0, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'} <repeats 25 times>}
+(gdb) p inode_table
+$7 = {{i_mode = 0, i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', 
+    i_nlinks = 0 '\000', i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, 
+    i_count = 0, i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {
+    i_mode = 16877, i_uid = 0, i_size = 128, i_mtime = 1600485900, 
+    i_gid = 0 '\000', i_nlinks = 8 '\b', i_zone = {112, 0, 0, 0, 0, 0, 0, 0, 
+      0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+    i_num = 1, i_count = 4, i_lock = 0 '\000', i_dirt = 0 '\000', 
+    i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'}, {i_mode = 16877, i_uid = 0, i_size = 336, 
+    i_mtime = 1078316602, i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {
+      950, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, i_atime = 0, 
+    i_ctime = 0, i_dev = 768, i_num = 15, i_count = 0, i_lock = 0 '\000', 
+    i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', 
+    i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 8576, i_uid = 0, 
+    i_size = 0, i_mtime = 1078316629, i_gid = 0 '\000', i_nlinks = 1 '\001', 
+    i_zone = {1024, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 1778767391, i_ctime = 0, i_dev = 768, i_num = 26, i_count = 1, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {
+    i_mode = 16877, i_uid = 0, i_size = 96, i_mtime = 1600478644, 
+    i_gid = 0 '\000', i_nlinks = 6 '\006', i_zone = {987, 0, 0, 0, 0, 0, 0, 0, 
+      0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+    i_num = 48, i_count = 0, i_lock = 0 '\000', i_dirt = 0 '\000', 
+    i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'}, {i_mode = 16877, i_uid = 0, i_size = 176, 
+    i_mtime = 1600496672, i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {
+      4721, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, i_atime = 0, 
+    i_ctime = 0, i_dev = 768, i_num = 131, i_count = 0, i_lock = 0 '\000', 
+    i_dirt = 0 '\000', i_pipe = 0 '\000', i_mount = 0 '\000', 
+    i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 33188, i_uid = 0, 
+    i_size = 74, i_mtime = 1600496672, i_gid = 0 '\000', i_nlinks = 1 '\001', 
+    i_zone = {4743, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 1778767397, i_ctime = 0, i_dev = 768, i_num = 134, i_count = 1, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}, {i_mode = 0, 
+    i_uid = 0, i_size = 0, i_mtime = 0, i_gid = 0 '\000', i_nlinks = 0 '\000', 
+    i_zone = {0, 0, 0, 0, 0, 0, 0, 0, 0}, i_wait = 0x0 <startup_32>, 
+    i_atime = 0, i_ctime = 0, i_dev = 0, i_num = 0, i_count = 0, 
+    i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+    i_mount = 0 '\000', i_seek = 0 '\000', 
+    i_update = 0 '\000'} <repeats 25 times>}
+(gdb) 

@@ -1,0 +1,10 @@
+    1  cd os/linux-0.11-lab/images
+    2  hexdump -s 0x400 -n 1024 -C rootimage-0.11
+    3  hexdump -s 0x1400 -n 32 -C rootimage-0.11
+    4  hexdump -s 0x1c000 -n 1024 -C rootimage-0.11
+    5  hexdump -s 0x1840 -n 32 -C rootimage-0.11
+    6  hexdump -s 0xedc00 -n 1024 -C rootimage-0.11
+    7  hexdump -s 0x1920 -n 32 -C rootimage-0.11
+    8  hexdump -s 0xf4000 -n 32 -C rootimage-0.11
+    9  hexdump -s 0xf5400 -n 1024 -C rootimage-0.11
+   10  history > /data/workspace/myshixun/history2.log

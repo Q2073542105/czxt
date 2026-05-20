@@ -1,0 +1,30 @@
+========================================================================
+                       Bochs x86 Emulator 2.6.9
+               Built from SVN snapshot on April 9, 2017
+                  Compiled on Aug 21 2020 at 09:28:41
+========================================================================
+Next at t=0
+(0) [0x0000fffffff0] f000:fff0 (unk. ctxt): jmpf 0xf000:e05b          ; ea5be000f0
+<bochs:1> <bochs:2> (0) Breakpoint 1, 0x10000000 in ?? ()
+Next at t=1667350178
+(0).[1667350178] ??? (physical address not available)
+<bochs:3> <bochs:4> (0) Breakpoint 1, 0x10000000 in ?? ()
+Next at t=1667359819
+(0) [0x000000fdc000] 000f:00000000 (unk. ctxt): mov eax, dword ptr ss:[esp+8] ; 8b442408
+<bochs:5> (0) Breakpoint 2, 0x10000088 in ?? ()
+Next at t=1667372650
+(0) [0x000000fdc088] 000f:00000088 (unk. ctxt): mov eax, 0x00000002       ; b802000000
+<bochs:6> Next at t=1667372651
+(0) [0x000000fdc08d] 000f:0000008d (unk. ctxt): int 0x80                  ; cd80
+<bochs:7> [bochs]:
+0x1000008d <bogus+       0>:	0xc08580cd
+<bochs:8> CR0=0x8000001b: PG cd nw ac wp ne ET TS em MP PE
+CR2=page fault laddr=0x10004000
+CR3=0x000000000000
+    PCD=page-level cache disable=0
+    PWT=page-level write-through=0
+CR4=0x00000000: pke smap smep osxsave pcid fsgsbase smx vmx osxmmexcpt umip osfxsr pce pge mce pae pse de tsd pvi vme
+EFER=0x00000000: ffxsr nxe lma lme sce
+<bochs:9> [bochs]:
+0x00fb5000 <bogus+       0>:	0x00fdc027
+<bochs:10> 

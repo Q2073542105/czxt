@@ -1,0 +1,46 @@
+target remote localhost:1234
+handle SIGSEGV nostop noprint ignore
+b main
+display current->pid
+c
+delete 1
+b sys_read                 
+c                       
+b tty_read
+c                          
+p tty_table[0].read_q      
+b do_tty_interrupt
+c
+p tty_table[0].read_q
+p tty_table[0].secondary   
+b wake_up
+c
+p tty_table[0].read_q
+p tty_table[0].secondary   
+c
+c
+c                          
+p tty_table[0].read_q
+p tty_table[0].secondary   
+c                          
+p tty_table[0].read_q
+p tty_table[0].secondary   
+c
+c
+c
+c
+c
+c
+c                         
+p tty_table[0].read_q
+p tty_table[0].secondary   
+c                          
+p tty_table[0].read_q
+p tty_table[0].secondary   
+p tty_table[0].secondary.data
+b tty_io.c:288             
+c
+p tty_table[0].secondary
+p current->start_code + buf 
+x/2bx 0x40254fb
+quit

@@ -1,0 +1,18 @@
+target remote localhost:1234
+handle SIGSEGV nostop noprint ignore
+b main
+display current->pid
+c
+delete 1           
+b do_execve
+c
+c
+c
+c
+b tty_read
+c
+p tty_table[0].secondary
+b tty_io.c:288
+c
+p tty_table[0].secondary
+quit

@@ -1,0 +1,313 @@
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from tools/system...done.
+0x0000fff0 in permission (inode=0x0 <startup_32>, mask=0) at namei.c:49
+49		else if (current->egid==inode->i_gid)
+Breakpoint 1 at 0x6770: file init/main.c, line 105.
+
+Breakpoint 1, main () at init/main.c:105
+105	{			/* The startup routine assumes (well, ...) this */
+1: current->pid = 0
+(gdb) b sys_open
+Breakpoint 2 at 0xb384: file open.c, line 139.
+(gdb) c
+Continuing.
+
+Breakpoint 2, sys_open (filename=0x183d7 "/dev/tty0", flag=2, mode=0)
+    at open.c:139
+139	{
+1: current->pid = 1
+(gdb) c[Kc
+Continuing.
+
+Breakpoint 2, sys_open (filename=0x18407 "/usr/root/hello.c", flag=0, mode=0)
+    at open.c:139
+139	{
+1: current->pid = 1
+(gdb) b open_namei
+Breakpoint 3 at 0x108b8: file namei.c, line 339.
+(gdb) c
+Continuing.
+
+Breakpoint 3, open_namei (pathname=0x18407 "/usr/root/hello.c", flag=0, 
+    mode=0, res_inode=0xffffb4) at namei.c:339
+339	{
+1: current->pid = 1
+(gdb) b dir_namei
+Breakpoint 4 at 0x1071a: file namei.c, line 280.
+(gdb) c
+Continuing.
+
+Breakpoint 4, dir_namei (pathname=0x18407 "/usr/root/hello.c", 
+    namelen=0xffff7c, name=0xffff80) at namei.c:280
+280	{
+1: current->pid = 1
+(gdb) b find_entry
+Breakpoint 5 at 0x10094: file namei.c, line 93.
+(gdb) b bread
+Breakpoint 6 at 0xd0b2: file buffer.c, line 271.
+(gdb) b match
+Breakpoint 7 at 0x10029: file namei.c, line 64.
+(gdb) commands 7
+Type commands for breakpoint(s) 7, one per line.
+End with a line saying just "end".
+>p *de
+>end
+(gdb) c              
+Continuing.
+
+Breakpoint 5, find_entry (dir=0xffff08, name=0x18408 "usr/root/hello.c", 
+    namelen=3, res_dir=0xffff04) at namei.c:93
+93	{
+1: current->pid = 1
+(gdb) p **dir
+$1 = {i_mode = 16877, i_uid = 0, i_size = 128, i_mtime = 1600485900, 
+  i_gid = 0 '\000', i_nlinks = 8 '\b', i_zone = {112, 0, 0, 0, 0, 0, 0, 0, 0}, 
+  i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, i_num = 1, 
+  i_count = 5, i_lock = 0 '\000', i_dirt = 0 '\000', i_pipe = 0 '\000', 
+  i_mount = 0 '\000', i_seek = 0 '\000', i_update = 0 '\000'}
+(gdb) c              
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=112) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c               
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe400)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$2 = {inode = 1, name = ".", '\000' <repeats 12 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe410)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$3 = {inode = 1, name = "..", '\000' <repeats 11 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe420)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$4 = {inode = 2, name = "bin\000\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe430)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$5 = {inode = 15, name = "dev\000\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe440)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$6 = {inode = 35, name = "etc\000\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe450)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$7 = {inode = 46, name = "root\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe460)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$8 = {inode = 47, name = "tmp\000\000\000\000\000\000\000\000\000\000"}
+(gdb) c               
+Continuing.
+
+Breakpoint 7, match (len=3, name=0x18408 "usr/root/hello.c", de=0x3fe470)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$9 = {inode = 48, name = "usr\000\000\000\000\000\000\000\000\000\000"}
+(gdb) b iget
+Breakpoint 8 at 0xc4be: file inode.c, line 245.
+(gdb) c               
+Continuing.
+
+Breakpoint 8, iget (dev=768, nr=48) at inode.c:245
+245	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=6) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c              
+Continuing.
+
+Breakpoint 5, find_entry (dir=0xffff08, name=0x1840c "root/hello.c", 
+    namelen=4, res_dir=0xffff04) at namei.c:93
+93	{
+1: current->pid = 1
+(gdb) p **dir
+$10 = {i_mode = 16877, i_uid = 0, i_size = 96, i_mtime = 1600478644, 
+  i_gid = 0 '\000', i_nlinks = 6 '\006', i_zone = {987, 0, 0, 0, 0, 0, 0, 0, 
+    0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+  i_num = 48, i_count = 1, i_lock = 0 '\000', i_dirt = 0 '\000', 
+  i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+  i_update = 0 '\000'}
+(gdb) c
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=987) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=4, name=0x1840c "root/hello.c", de=0x3fd800)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$11 = {inode = 48, name = ".", '\000' <repeats 12 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=4, name=0x1840c "root/hello.c", de=0x3fd810)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$12 = {inode = 1, name = "..", '\000' <repeats 11 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=4, name=0x1840c "root/hello.c", de=0x3fd820)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$13 = {inode = 49, name = "bin\000\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=4, name=0x1840c "root/hello.c", de=0x3fd830)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$14 = {inode = 93, name = "local\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=4, name=0x1840c "root/hello.c", de=0x3fd840)
+    at namei.c:64
+64	{
+1: current->pid = 1
+$15 = {inode = 131, name = "root\000\000\000\000\000\000\000\000\000"}
+(gdb) c
+Continuing.
+
+Breakpoint 8, iget (dev=768, nr=131) at inode.c:245
+245	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=9) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c              
+Continuing.
+
+Breakpoint 5, find_entry (dir=0xffff78, name=0x18411 "hello.c", namelen=7, 
+    res_dir=0xffff74) at namei.c:93
+93	{
+1: current->pid = 1
+(gdb) p **dir
+$16 = {i_mode = 16877, i_uid = 0, i_size = 176, i_mtime = 1600496672, 
+  i_gid = 0 '\000', i_nlinks = 2 '\002', i_zone = {4721, 0, 0, 0, 0, 0, 0, 0, 
+    0}, i_wait = 0x0 <startup_32>, i_atime = 0, i_ctime = 0, i_dev = 768, 
+  i_num = 131, i_count = 1, i_lock = 0 '\000', i_dirt = 0 '\000', 
+  i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+  i_update = 0 '\000'}
+(gdb) c
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=4721) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=7, name=0x18411 "hello.c", de=0x3fd000) at namei.c:64
+64	{
+1: current->pid = 1
+$17 = {inode = 131, name = ".", '\000' <repeats 12 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=7, name=0x18411 "hello.c", de=0x3fd010) at namei.c:64
+64	{
+1: current->pid = 1
+$18 = {inode = 48, name = "..", '\000' <repeats 11 times>}
+(gdb) c
+Continuing.
+
+Breakpoint 7, match (len=7, name=0x18411 "hello.c", de=0x3fd020) at namei.c:64
+64	{
+1: current->pid = 1
+$19 = {inode = 132, name = ".bash_history"}
+(gdb) c  
+Continuing.
+
+Breakpoint 7, match (len=7, name=0x18411 "hello.c", de=0x3fd030) at namei.c:64
+64	{
+1: current->pid = 1
+$20 = {inode = 134, name = "hello.c\000\000\000\000\000\000"}
+(gdb) b namei.c:4100[K
+Breakpoint 9 at 0x10c23: file namei.c, line 410.
+(gdb) c
+Continuing.
+
+Breakpoint 8, iget (dev=768, nr=134) at inode.c:245
+245	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 6, bread (dev=768, block=9) at buffer.c:271
+271	{
+1: current->pid = 1
+(gdb) c
+Continuing.
+
+Breakpoint 9, open_namei (pathname=0x18407 "/usr/root/hello.c", flag=0, 
+    mode=32768, res_inode=0xffffb4) at namei.c:410
+410	}
+1: current->pid = 1
+(gdb) p **res_inode
+$21 = {i_mode = 33188, i_uid = 0, i_size = 74, i_mtime = 1600496672, 
+  i_gid = 0 '\000', i_nlinks = 1 '\001', i_zone = {4743, 0, 0, 0, 0, 0, 0, 0, 
+    0}, i_wait = 0x0 <startup_32>, i_atime = 1778766796, i_ctime = 0, 
+  i_dev = 768, i_num = 134, i_count = 1, i_lock = 0 '\000', i_dirt = 0 '\000', 
+  i_pipe = 0 '\000', i_mount = 0 '\000', i_seek = 0 '\000', 
+  i_update = 0 '\000'}
+(gdb) 
