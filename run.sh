@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-RAW_BASE="https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main"
+RAW_BASE="${CZXT_RAW_BASE:-https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main}"
 
 if [ $# -lt 1 ]; then
   echo "用法: bash -c \"$(curl -fsSL https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main/run.sh)\" -- 关卡文件夹名"
