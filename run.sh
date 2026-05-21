@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-RAW_BASE="${CZXT_RAW_BASE:-https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main}"
+RAW_BASE="${CZXT_RAW_BASE:-https://cdn.jsdelivr.net/gh/hobzo/czxt@main}"
 
 if [ $# -lt 1 ]; then
-  echo "用法: bash -c \"$(curl -fsSL https://cdn.jsdelivr.net/gh/Q2073542105/czxt@main/run.sh)\" -- 关卡文件夹名"
+  echo "用法: bash -c \"$(curl -fsSL https://cdn.jsdelivr.net/gh/hobzo/czxt@main/run.sh)\" -- 关卡文件夹名"
   exit 1
 fi
 
@@ -245,15 +245,6 @@ gdb.log|gdb.log
 FILES
 )"
     ;;
-  7.2.kehou-3)
-    level_path="7.2.kehou-3"
-    files="$(cat <<'FILES'
-install.sh|install.sh
-第四关.txt|%E7%AC%AC%E5%9B%9B%E5%85%B3.txt
-gdb.log|gdb.log
-FILES
-)"
-    ;;
   7.2.ketang-1)
     level_path="7.2.ketang-1"
     files="$(cat <<'FILES'
@@ -268,6 +259,15 @@ FILES
     files="$(cat <<'FILES'
 install.sh|install.sh
 第二关.txt|%E7%AC%AC%E4%BA%8C%E5%85%B3.txt
+gdb.log|gdb.log
+FILES
+)"
+    ;;
+  7.2.ketang-3)
+    level_path="7.2.ketang-3"
+    files="$(cat <<'FILES'
+install.sh|install.sh
+第四关.txt|%E7%AC%AC%E5%9B%9B%E5%85%B3.txt
 gdb.log|gdb.log
 FILES
 )"
